@@ -1,0 +1,38 @@
+.ls-login-page {
+    .ls-login-bg {
+        background-image: url('../img/lunchsociety-login-page.jpg');
+    }
+    .ls-form-container {
+        background-color: #fff;
+        position: relative;
+        display: block;
+        opacity: 0.9;
+        width: 400px;
+        padding: 25px;
+        @include border-radius(2px);
+        height: 400px;
+        text-align: center;
+        @include center-both;
+        @include breakpoint(medium down) {
+            width: 90%;
+            height: auto;
+        }
+        form {
+            text-align: left;
+        }
+        p {
+            color: #111;
+        }
+        .button {
+            width: 100%;
+            @include border-radius(2px);
+        }
+        .ls-sign-up-text {
+            font-size: 0.9rem;
+            p {
+                font-size: 0.9rem;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}

@@ -1,0 +1,97 @@
+ls-modal {
+    .ls-meal-choice-modal {
+        width: 600px;
+        @include breakpoint(medium down) {
+            width: 85%;
+        }
+        .ls-meal-image {
+            @include position(absolute, 20px, auto, auto, -250px);
+            img {
+                width: 320px;
+                @include border-radius(3px);
+                @include breakpoint(medium down) {
+                    width: 100%;
+                }
+            }
+            @include breakpoint(medium down) {
+                @include position(relative, 0, auto, auto, 0);
+                width: 70%;
+                margin-right: auto;
+                margin-left: auto;
+            }
+        }
+        .ls-text-tabs {
+            @include breakpoint(medium down) {
+                width: 100%;
+                text-align: center;
+            }
+            >* {
+                @include breakpoint(medium down) {
+                    float: none;
+                    display: inline-block;
+                }
+            }
+        }
+        .ls-meal-info {
+            margin-left: 60px;
+            text-align: left;
+            padding-left: 20px;
+            padding-right: 10px;
+            min-height: 230px;
+            @include breakpoint(medium down) {
+                margin-left: 0;
+                padding-left: 0px;
+                min-height: 180px;
+                text-align: center;
+            }
+            .ls-res-name {
+                text-transform: uppercase;
+                font-size: 1.2rem;
+            }
+            .ls-ingredients,
+            .ls-description {
+                color: #5d5d5d;
+                font-size: 0.9rem;
+            }
+        }
+        .ls-order-button {
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 15px 30px;
+        }
+        h5 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        .ls-close-btn {
+            box-shadow: none;
+            border: none;
+            background: $dark-color;
+            padding: 10px;
+            @include border-radius(3px);
+            @include position(absolute, -20px, -20px, auto, auto);
+            i {
+                color: $light-color;
+                font-size: 1.5rem;
+            }
+            @include breakpoint(medium down) {
+                @include position(absolute, -1px, -1px, auto, auto);
+            }
+        }
+        .ls-pick-up-times {
+            width: 250px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            option {
+                text-align: center;
+            }
+        }
+        .ls-remove {
+            @include breakpoint(medium down) {
+                display: none;
+            }
+        }
+    }
+}

@@ -1,0 +1,20 @@
+.ls-app-body {
+    position: absolute;
+    top: 40px;
+    background-color: #fff;
+    left: 250px;
+    right: 0;
+    width: auto;
+    bottom: 0;
+    height: auto;
+    overflow: auto;
+    &.ls-customer,
+    &.ls-restaurant {
+        left: 0;
+        top: $nav-bar-height;
+        padding-top: 0;
+    }
+    .grid-container {
+        padding-top: 20px;
+    }
+}

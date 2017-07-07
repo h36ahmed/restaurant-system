@@ -1,0 +1,36 @@
+---
+name: home
+url: /
+---
+
+<article class="ls-login-page">
+    <header class="ls-home-header">
+        <div ng-include="'/templates/partials/home_bar.html'"></div>
+    </header>
+    <div class="ls-bg ls-login-bg"></div>
+    <section class="ls-common-body">
+        <div class="ls-form-container" ng-controller="homeCtrl as home">
+            <h3>Welcome to Lunch Society!</h3>
+            <p>Awesome Food!</p>
+            <form name="userForm" ng-submit="submitForm(userForm.$valid)">
+                <label>
+                    Email Address
+                    <input type="text" placeholder="Email Address" ng-model="userFormData.email" class="ls-input-fields">
+                </label>
+                <label>
+                    Password
+                    <input type="password" placeholder="Password" ng-model="userFormData.password" class="ls-input-fields">
+                </label>
+                <input type="submit" class="button" value="Log In" ng-disabled="!userFormData.email.length || !userFormData.password.length">
+            </form>
+            <div class="ls-sign-up-text">
+                <a ng-click="passwordChangeModal()">Forgot your password?</a>
+                <p class="">Don't Have Lunch Society Account?</p>
+                <a href="#" class="ls-text-links">Request For Invite</a>
+            </div>
+        </div>
+        <footer class="ls-home-footer">
+             <div ng-include="'/templates/partials/home_footer.html'"></div>
+        </footer>
+    </section>
+</article>

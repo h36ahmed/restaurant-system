@@ -1,0 +1,73 @@
+.ls-app-nav {
+    color: $dark-color;
+    background-color: $light-color;
+    height: $nav-bar-height;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+    @include position(absolute, 0, 0, auto, 0);
+    z-index: 2;
+    li {
+        a {
+            font-size: 1.1rem;
+            line-height: 0;
+        }
+        i {
+            margin-right: 10px;
+            color: $primary-color;
+            @include breakpoint(medium down) {
+                margin-right: 0;
+            }
+        }
+    }
+    .ls-img-logo {
+        img {
+            width: 170px;
+            height: auto;
+            margin-bottom: 0;
+        }
+    }
+    .ls-cta-btn {
+        margin: 0;
+        margin-right: 10px;
+        height: $nav-bar-logout-btn-height;
+        margin-top: 3.5px;
+        color: $light-color;
+        &:hover {
+            background-color: darken($primary-color, $darken-primary-shade);
+        }
+    }
+    .ls-mobile {
+        display: none;
+        font-size: 1.75rem;
+    }
+    @include breakpoint(medium down) {
+        .menu-group-left {
+            flex: 1 1 60%;
+        }
+        .menu-group-right {
+            flex: 1 1 40%;
+        }
+        .ls-desktop {
+            display: none;
+        }
+        .ls-mobile {
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+    &.ls-customer {
+        @include breakpoint(medium down) {
+            .menu-group-left {
+                flex: 1 1 35%;
+            }
+            .menu-group-right {
+                flex: 1 1 60%;
+                justify-content: flex-end;
+            }
+            .ls-img-logo {
+                img {
+                    width: 110px;
+                }
+            }
+        }
+    }
+}

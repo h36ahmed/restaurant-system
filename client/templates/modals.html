@@ -1,0 +1,369 @@
+<ls-modal
+        ng-show="subview"
+        ng-switch="subview">
+
+    <!-- BEGIN: Status Modal. -->
+    <div
+        ng-switch-when="status"
+        ng-controller="statusModalCtrl"
+        class="ls-modal">
+
+        <div class="ls-modal-body">
+            <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+        </div>
+
+    </div>
+    <!-- END: Status Modal. -->
+
+    <!-- BEGIN: Alert Modal. -->
+    <div
+        ng-switch-when="alert"
+        ng-controller="alertModalCtrl"
+        class="ls-modal">
+
+        <p>
+            {{ message }}
+        </p>
+
+        <p>
+            <a ng-click="close()" class="button">Ok, I got it!</a>
+        </p>
+
+    </div>
+    <!-- END: Alert Modal. -->
+
+    <!-- BEGIN: Create Account Modal. -->
+    <div
+        ng-switch-when="create-account"
+        ng-controller="createAccountModalCtrl"
+        class="ls-modal">
+
+        <p>
+            {{ message }}
+        </p>
+
+        <p>
+            <a ng-click="close()" class="button">Go to Add Owner Information</a>
+        </p>
+
+    </div>
+    <!-- END: Create Account Modal. -->
+
+    <!-- BEGIN: Confirm Modal. -->
+    <div
+        ng-switch-when="confirm"
+        ng-controller="confirmModalCtrl"
+        class="ls-modal">
+
+        <p>
+            {{ message }}
+        </p>
+
+        <p>
+            <a ng-click="confirm()" class="button">{{ confirmButton }}</a>
+            &mdash;
+            <a ng-click="deny()" class="button">{{ denyButton }}</a>
+        </p>
+
+    </div>
+    <!-- END: Confirm Modal. -->
+
+    <!-- BEGIN: Prompt Modal. -->
+    <form
+        ng-switch-when="prompt"
+        ng-controller="promptModalCtrl"
+        ng-submit="submit()"
+        class="ls-modal">
+
+        <p>
+            {{ message }}
+        </p>
+
+        <p ng-if="errorMessage">
+            <strong>Sorry:</strong> {{ errorMessage }}
+        </p>
+
+        <p>
+            <input type="text" ng-model="form.input" />
+        </p>
+
+        <p>
+            <a ng-click="submit()" class="button">Submit</a>
+            <a ng-click="cancel()" class="button">Cancel</a>
+        </p>
+
+    </form>
+    <!-- END: Prompt Modal. -->
+
+    <!-- BEGIN: Meal Choice Modal. -->
+    <form
+        ng-switch-when="meal-choice"
+        ng-controller="mealChoiceModalCtrl"
+        ng-submit="submit()"
+        class="ls-modal ls-meal-choice-modal">
+
+        <button type="button" ng-click="cancel()" class="ls-close-btn"><i class="fa fa-close"></i></button>
+
+        <div class="ls-meal-image">
+            <img ng-src="https://s3.ca-central-1.amazonaws.com/ls-frontend/meals/{{meal.meal_image}}" alt="" ng-if="meal.meal_image != ''">
+            <img src="/assets/img/lunchsociety-thumb.png" ng-if="meal.meal_image == ''"/>
+        </div>
+
+        <div class="ls-meal-info">
+            <h2 class="ls-meal-name">{{meal.name}}</h2>
+            <h4 class="ls-res-name">{{meal.restaurant.name}}</h4>
+            <ul class="ls-text-tabs">
+                <li class="ls-text-tab" ng-class="{active: tabview == 'description'}"><a ng-click="changeTabview('description')" class="ls-tab-link">Description</a></li>
+                <li class="ls-text-tab" ng-class="{active: tabview == 'ingredients'}"><a ng-click="changeTabview('ingredients')" class="ls-tab-link">Ingredients</a></li>
+            </ul>
+            <div ng-show="tabview" ng-switch="tabview">
+                <div class="ls-tab-content" ng-switch-when="description">
+                    <p class="ls-description">{{meal.description}}</p>
+                </div>
+                <div class="ls-tab-content" ng-switch-when="ingredients">
+                    <p class="ls-ingredients">{{meal.ingredients}}</p>
+                </div>
+            </div>
+        </div>
+
+        <h5 class="ls-remove">Pick Up Food At</h5>
+
+        <select name="pickUpTime" id="pickUpTime" class="ls-pick-up-times ls-input-fields" ng-model="form.pickup" ng-options="pickup as pickup.pickup_time for pickup in pickups track by pickup.id" required >
+        </select>
+
+        <h5>At {{meal.restaurant.street_address}}</h5>
+
+        <p ng-if="errorMessage">
+            <strong>Sorry:</strong> {{ errorMessage }}
+        </p>
+
+        <input type="submit" value="Order Food" class="button ls-order-button">
+
+    </form>
+    <!-- END: Meal Choice Modal. -->
+
+    <!-- BEGIN: Payout Modal. -->
+    <form
+        ng-switch-when="payout"
+        ng-controller="payoutModalCtrl"
+        ng-submit="submit()"
+        class="ls-modal">
+
+        <h3> {{ header }}</h3>
+
+        <p>
+            {{ message }}
+        </p>
+
+        <p ng-if="errorMessage">
+            <strong>Sorry:</strong> {{ errorMessage }}
+        </p>
+
+        <p>
+            <label for="filterWeek">
+                Select Week Period
+            </label>
+            <select name="filterWeek" id="filterWeek" class="ls-input-fields" ng-model="form.week" ng-options="week as week.name for week in weeks track by week.id" required>
+            </select>
+        </p>
+
+        <p>
+            <a ng-click="submit()" class="button success">Confirm</a>
+            <a ng-click="cancel()" class="button">Cancel</a>
+        </p>
+
+    </form>
+    <!-- END: Payout Modal. -->
+
+    <!-- BEGIN: Feedback Modal. -->
+    <div
+        ng-switch-when="feedback"
+        ng-controller="feedbackModalCtrl"
+        class="ls-modal ls-feedback-modal">
+
+        <div class="ls-feedback-id">
+            Feedback #{{feedback.id}}
+        </div>
+        <div class="ls-feedback-date">
+            {{feedback.order.order_date | date}}
+        </div>
+
+        <div class="ls-feedback-info">
+            <h3><a ui-sref="customer({id: feedback.order.customer.id})" class="ls-customer-link">{{feedback.order.customer.first_name | titleCase}} {{feedback.order.customer.last_name | titleCase}} </a></h3>
+            <div class="ls-meal-offer">
+                <a ui-sref="offer({id: feedback.offer.id})" class="ls-offer-link">{{feedback.order.offer.meal.name | titleCase}}</a>
+                <a ui-sref="restaurant({id: feedback.offer.meal.restaurant.id })" class="ls-offer-link">{{feedback.order.offer.meal.restaurant.name | titleCase}}</a>
+            </div>
+            <ul class="ls-ratings">
+                <li><strong>Flavour</strong></li>
+                <li><strong>Portion Size</strong></li>
+                <li><strong>Overall</strong></li>
+            </ul>
+            <ul class="ls-ratings">
+                <li>{{feedback.flavour}}</li>
+                <li>{{feedback.portion_size}}</li>
+                <li>{{feedback.overall}}</li>
+            </ul>
+            <p ng-if="feedback.comments != null" class="ls-comments">{{feedback.comments}}</p>
+            <p ng-if="feedback.comments == '' || feedback.comments == null">No Comments</p>
+        </div>
+
+        <p>
+            <a ng-click="close()" class="button">Ok, I got it!</a>
+        </p>
+    </div>
+    <!-- END: Feedback Modal. -->
+
+    <!-- BEGIN: Meal Offer Modal. -->
+    <div
+        ng-switch-when="meal-offer"
+        ng-controller="mealOfferModalCtrl"
+        class="ls-modal ls-meal-choice-modal">
+
+        <button type="button" ng-click="cancel()" class="ls-close-btn"><i class="fa fa-close"></i></button>
+
+        <div class="ls-meal-image">
+            <img ng-src="https://s3.ca-central-1.amazonaws.com/ls-frontend/meals/{{offer.meal.meal_image}}" alt="" ng-if="meal.meal_image != ''">
+            <img src="/assets/img/lunchsociety-thumb.png" ng-if="meal.meal_image == ''"/>
+        </div>
+
+        <div class="ls-meal-info">
+            <h2 class="ls-meal-name">{{offer.meal.name}}</h2>
+            <h4 class="ls-res-name">{{offer.date}}</h4>
+            <ul class="ls-text-tabs">
+                <li class="ls-text-tab" ng-class="{active: tabview == 'description'}"><a ng-click="changeTabview('description')" class="ls-tab-link">Description</a></li>
+                <li class="ls-text-tab" ng-class="{active: tabview == 'ingredients'}"><a ng-click="changeTabview('ingredients')" class="ls-tab-link">Ingredients</a></li>
+            </ul>
+            <div ng-show="tabview" ng-switch="tabview">
+                <div class="ls-tab-content" ng-switch-when="description">
+                    <p class="ls-description">{{offer.meal.description}}</p>
+                </div>
+                <div class="ls-tab-content" ng-switch-when="ingredients">
+                    <p class="ls-ingredients">{{offer.meal.ingredients}}</p>
+                </div>
+            </div>
+        </div>
+
+        <ul class="ls-meal-offer-details">
+            <li>
+                <p>Plates Assigned</p>
+                <p>{{offer.plates_assigned}}</p>
+            </li>
+            <li>
+                <p>Plates Served</p>
+                <p>{{offer.plates_assigned - offer.plates_left}}</p>
+            </li>
+            <li>
+                <p>Plates Left</p>
+                <p>{{offer.plates_left}}</p>
+            </li>
+        </ul>
+
+        <p>
+            <a ng-click="close()" class="button">Ok, I got it!</a>
+        </p>
+    </div>
+    <!-- END: Meal Offer Modal. -->
+
+    <!-- BEGIN: Alert Edit Offer Modal. -->
+    <div
+        ng-switch-when="alert-edit"
+        ng-controller="alertEditOfferModalCtrl"
+        class="ls-modal">
+
+        <p>
+            {{ message }}
+        </p>
+
+        <p>
+            <a ng-click="close()" class="button">Ok, I got it!</a>
+            <a ng-click="goToEditMealOffer()" class="button">View meal offer</a>
+        </p>
+
+    </div>
+    <!-- END: Alert Edit Offer Modal. -->
+
+    <!-- BEGIN: Alert Edit Offer Modal. -->
+    <div
+        ng-switch-when="alert-create"
+        ng-controller="alertCreateOfferModalCtrl"
+        class="ls-modal">
+
+        <p>
+            {{ message }}
+        </p>
+
+        <p>
+            <a ng-click="close()" class="button">Ok, I got it!</a>
+            <a ng-click="goToCreateMealOffer()" class="button">Create meal offer</a>
+        </p>
+
+    </div>
+    <!-- END: Alert Edit Offer Modal. -->
+
+    <!-- BEGIN: Password Change Modal. -->
+    <form
+        ng-switch-when="password-change"
+        ng-controller="passwordChangeModalCtrl"
+        ng-submit="submit()"
+        class="ls-modal ls-password-change-modal"
+        name="passwordChangeForm">
+
+        <p>
+            {{ message }}
+        </p>
+
+        <label>
+            Old Password
+            <input type="text" placeholder="Old Password" ng-model="passwordChangeFormData.old_password" class="ls-input-fields">
+        </label>
+
+        <label>
+            New Password
+            <input type="password" placeholder="New Password" ng-model="passwordChangeFormData.new_password" class="ls-input-fields">
+        </label>
+
+        <label>
+            Confirm Password
+            <input type="password" placeholder="Confirm Password" ng-model="passwordChangeFormData.confirm_password" class="ls-input-fields">
+        </label>
+
+        <p ng-if="errorMessage" class="ls-help-block">{{errorMessage}}</p>
+
+        <p>
+            <input type="submit" value="Change password" class="button ls-order-button">
+            <a ng-click="cancel()" class="button">Cancel</a>
+        </p>
+
+    </form>
+    <!-- END: Password Change Modal. -->
+
+    <!-- BEGIN: Forgot Password Modal. -->
+    <form
+        ng-switch-when="forgot-password"
+        ng-controller="forgotPasswordModalCtrl"
+        ng-submit="submit()"
+        class="ls-modal ls-forgot-password-modal"
+        name="forgotPasswordForm">
+
+        <p>
+            {{ message }}
+        </p>
+
+        <label>
+            Enter Email
+            <input type="email" placeholder="Enter email" ng-model="forgotPasswordFormData.email" class="ls-input-fields">
+        </label>
+
+        <p ng-if="errorMessage" class="ls-help-block">{{errorMessage}}</p>
+
+        <p>
+            <input type="submit" value="Reset password" class="button ls-order-button">
+            <a ng-click="cancel()" class="button">Cancel</a>
+        </p>
+
+    </form>
+    <!-- END: Forgot Password Modal. -->
+
+</ls-modal>
