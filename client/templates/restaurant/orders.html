@@ -68,12 +68,14 @@ url: /restaurant/orders
                                 <tr>
                                   <th>ID</th>
                                   <th>Customer Name</th>
+                                  <th>Order Status</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <tr ng-repeat="order in pickupTime.orders">
                                     <td>{{order.id}}</td>
                                     <td><a ui-sref="customer({id: order.customer.id })">{{order.customer.first_name | titleCase}} {{order.customer.last_name | titleCase}} </a></td>
+                                    <td>{{order.status | titleCase}}</td>
                                 </tr>
                               </tbody>
                             </table>
