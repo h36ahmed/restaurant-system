@@ -27,7 +27,6 @@ var resOrdersCtrl = function ($scope, $location, orderService, modalService, mea
       })
       .success((data, status, headers, config) => {
         $scope.pickupTimes = data
-        console.log($scope.pickupTimes)
       })
   }
 
