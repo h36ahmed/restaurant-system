@@ -40,7 +40,7 @@ var homeCtrl = function ($scope, $location, commonService, modalService, $window
                                 if (data.status === 'active') {
                                   commonService.setOwnerID(data.owner_id);
                                   commonService.setRestaurantID(data.restaurant_id);
-                                  $location.path('/restaurant/orders');
+                                  $location.path('restaurant/orders');
                                 } else {
                                   promise = modalService.open(
                                     'alert', {
