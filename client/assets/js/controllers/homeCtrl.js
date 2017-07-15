@@ -18,11 +18,9 @@ var homeCtrl = function ($scope, $location, commonService, modalService, $window
                     modalService.resolve();
                     promise.then(
                         function handleResolve(response) {
-                            console.log('restaurant hello')
                             commonService.setAuthToken(data.token);
                             commonService.setUserID(data.user_id);
                             if (data.type == "customer") {
-                              console.log('restaurant hello1')
                                 commonService.setCustomerID(data.customer_id);
                                 if (data.needOrderFeedback) {
                                   commonService.setFeedbackID(data.needOrderFeedback)
@@ -36,7 +34,6 @@ var homeCtrl = function ($scope, $location, commonService, modalService, $window
                                 }
                             }
                             if (data.type == "owner") {
-                              console.log('restaurant hello2')
                                 if (data.status === 'active') {
                                   commonService.setOwnerID(data.owner_id);
                                   commonService.setRestaurantID(data.restaurant_id);
