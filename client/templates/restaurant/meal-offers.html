@@ -79,6 +79,7 @@ url: /restaurant/meal-offers
                                         <th>Number of Plates Left</th>
                                         <th>Offer Status</th>
                                         <th>Edit your meal</th>
+                                        <th>Inactivate meal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -90,7 +91,17 @@ url: /restaurant/meal-offers
                                         <td data-title="plates assigned">{{offer.plates_assigned}}</td>
                                         <td data-title="plates left">{{offer.plates_left}}</td>
                                         <td data-title="status">{{offer.status | titleCase}}</td>
-                                        <td><a ng-click="editMealOffer(offer.id)"><i class="fa fa-pencil-square-o"></i>Edit</a></td>
+                                        <td data-title="edit"><a ng-click="editMealOffer(offer.id)"><i class="fa fa-pencil-square-o"></i>Edit</a></td>
+                                        <td>
+                                            <form class="ls-form ls-edit-form" name="editOfferForm" novalidate>
+                                                <div class="ls-switch-container">
+                                                    <div class="small switch">
+                                                        <input type="checkbox" id={{offer.id}} name="editOfferStatus" ng-model="offer.status" ng-change="submitEditForm(offer.status, offer.id)" ng-true-value="'inactive'" ng-false-value="'active'">
+                                                        <label for={{offer.id}}></label>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

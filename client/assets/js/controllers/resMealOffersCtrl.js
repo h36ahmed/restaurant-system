@@ -49,6 +49,25 @@ var resMealOffersCtrl = function ($scope, $filter, $location, commonService, mea
     $location.path(`/restaurant/edit-meal-offer/${id}`)
   }
 
+  $scope.submitEditForm = (offer, offer_id) => {
+    let promise = modalService.open('status', {})
+    mealOfferService
+      .editMealOffer({ status: offer, id: offer_id})
+      .success((data, status, headers, config) => {
+        modalService.resolve()
+        promise.then(function handleResolve(response) {
+          promise = modalService.open(
+            'alert', {
+              message: `Meal Offer ID #${offer_id} is now ${offer === 'inactive' ? 'inactive' : 'active'}`
+            }
+          )
+          promise.then(function handleResolve(response){}, function handleReject(error){})
+        }, function handleReject(error){
+          console.log('Why is it rejected?')
+        })
+      })
+  }
+
   $scope.changeWeek = function(action) {
     $scope.offers = []
     switch (action) {
