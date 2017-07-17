@@ -8,15 +8,21 @@ url: /restaurant/meals
     <div class="ls-app-body ls-restaurant">
         <div class="grid-container ls-restaurant-pages ls-manage-pages" ng-controller="resMealsCtrl as mealsCtrl">
             <div class="grid-block ls-title-bar">
-                <div class="grid-block small-8 vertical">
-                   <div class="grid-content">
+                <div class="grid-block small-6 vertical">
+                    <div class="grid-content">
                         <h2>Manage Meals</h2>
-                   </div>
+                    </div>
                 </div>
                 <div class="grid-block small-4 vertical">
-                   <div class="grid-content text-right">
-                       <a ui-sref="res-create-meal" class="button success ls-create-button">Create Meal</a>
-                   </div>
+                    <div class="grid-content ls-default-meal-bar">
+                        <select class="ls-input-fields" ng-options="meal as meal.name for meal in meals track by meal.id" ng-model="defaultMealFormData.meal" name="defaultMeal" id="defaultMeal" ng-change="changeDefaultMeal(defaultMealFormData.meal)" required>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid-block small-2 vertical">
+                    <div class="grid-content text-right">
+                        <a ui-sref="res-create-meal" class="button success ls-create-button">Create Meal</a>
+                    </div>
                 </div>
             </div>
             <div class="grid-block">
