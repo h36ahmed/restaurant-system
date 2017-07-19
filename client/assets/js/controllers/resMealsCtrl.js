@@ -5,13 +5,13 @@ var resMealsCtrl = function ($scope,commonService, mealService, modalService) {
   var restaurant = commonService.getRestaurantID();
 
   $scope.meals = [];
-  $scope.defaultMealForm = {}
+  $scope.meal = {}
 
   mealService
-    .getMeals({ restaurant_id: restaurant })
+    .getMeals({ restaurant_id: restaurant, changeDefaultMeal: true })
     .success(function(data, status, headers, config) {
       $scope.meals = data;
-      $scope.defaultMealForm.meals = $scope.meals[0]
+      $scope.meal = $scope.meals[0]
     })
     .error(function(data, status, headers, config) {
       // Handle login errors here
@@ -19,7 +19,30 @@ var resMealsCtrl = function ($scope,commonService, mealService, modalService) {
     });
 
   $scope.changeDefaultMeal = (meal) => {
-    console.log('meal', meal)
+    let promise = modalService.open('status', {})
+
+    mealService
+      .editMeal({
+        id: meal.id,
+        default_meal: true,
+        restaurant_id: restaurant,
+    })
+    .success((data, status, headers, config) => {
+      modalService.resolve()
+
+      promise.then(function handleResolve(response) {
+        promise = modalService.open(
+          'alert', {
+            message: `Your new default meal is now ${data.name}`
+          }
+        )
+        promise.then(function handleResolve(response) {
+          $scope.meal = data
+        }, function handleReject(error) {})
+      }, function handleReject(error) {
+        console.log('Why is it rejected?')
+      })
+    })
   }
 
 };

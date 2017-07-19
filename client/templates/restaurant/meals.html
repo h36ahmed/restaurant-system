@@ -15,7 +15,8 @@ url: /restaurant/meals
                 </div>
                 <div class="grid-block small-4 vertical">
                     <div class="grid-content ls-default-meal-bar">
-                        <select class="ls-input-fields" ng-options="meal as meal.name for meal in meals track by meal.id" ng-model="defaultMealFormData.meal" name="defaultMeal" id="defaultMeal" ng-change="changeDefaultMeal(defaultMealFormData.meal)" required>
+                        <span>Default Meal: </span>
+                        <select class="ls-input-fields" ng-options="meal as meal.name for meal in meals track by meal.id" ng-model="meal" name="defaultMeal" id="defaultMeal" ng-change="changeDefaultMeal(meal)" required>
                         </select>
                     </div>
                 </div>
